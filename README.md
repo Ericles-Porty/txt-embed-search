@@ -27,7 +27,7 @@ venv\Scripts\activate     # Windows
 
 # Instale as dependências
 pip install -r requirements.txt
-
+```
 # Uso
 1. Coloque seus arquivos `.txt` na pasta `knowledge_database`.
 2. Execute o script principal:
