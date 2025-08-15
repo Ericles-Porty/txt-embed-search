@@ -1,16 +1,37 @@
-# txt-embed-search
+# Busca Semântica com ChromaDB e Hugging Face
 
-Ferramenta para indexação e busca semântica de arquivos `.txt` usando **OpenAI Embeddings** e **ChromaDB**.
+Este projeto realiza indexação e busca semântica em arquivos `.txt` usando **Hugging Face Sentence Transformers** para gerar embeddings gratuitamente e o **ChromaDB** para armazenar e pesquisar.
 
-## 🚀 Funcionalidades
-- Lê todos os arquivos `.txt` de uma pasta.
-- Divide textos em **chunks** configuráveis para melhorar precisão de busca.
-- Gera embeddings usando o modelo `text-embedding-3-small` da OpenAI.
-- Salva os embeddings localmente no **ChromaDB** (persistente em disco).
-- Usa hash SHA-256 para processar apenas arquivos novos ou modificados.
-- Realiza busca textual via similaridade vetorial.
+## 📌 Funcionalidades
+- Indexa automaticamente arquivos `.txt` da pasta configurada.
+- Detecta alterações em arquivos usando hash SHA256 (evita reprocessamento desnecessário).
+- Divide textos grandes em *chunks* para melhorar a busca.
+- Busca semântica local sem custo de API.
+- Persistência local do banco ChromaDB.
 
-## 🛠 Tecnologias
-- [Python 3.10+](https://www.python.org/)
-- [OpenAI API](https://platform.openai.com/docs/)
-- [ChromaDB](https://docs.trychroma.com/)
+## 🚀 Tecnologias
+- [Sentence Transformers](https://www.sbert.net/) (Hugging Face)
+- [ChromaDB](https://www.trychroma.com/)
+- [Python](https://www.python.org/)
+
+## ⚙️ Instalação
+```bash
+# Clone este repositório
+git clone https://github.com/ericles-porty/txt-embed-search.git
+cd txt-embed-search
+
+# Crie o ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Uso
+1. Coloque seus arquivos `.txt` na pasta `knowledge_database`.
+2. Execute o script principal:
+```bash
+python main.py
+```
+3. Siga as instruções no terminal para realizar buscas.

@@ -1,25 +1,23 @@
 import os
 import glob
-from openai import OpenAI
 import chromadb
 import hashlib
 import json
+from sentence_transformers import SentenceTransformer
 
 # === CONFIGURAÇÃO ===
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-PASTA_ARQUIVOS = r"arquivos_mediador_texto"
+PASTA_ARQUIVOS = "knowledge_database"
 PASTA_CHROMA = "chroma_db"
 ARQUIVO_HASHES = "hashes.json"
 TAMANHO_CHUNK = 2000
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+
+modelo_embedding = SentenceTransformer(EMBEDDING_MODEL)
 
 # === FUNÇÕES ===
 def gerar_embedding(texto):
-    """Gera embedding para um texto usando a API da OpenAI."""
-    resp = client.embeddings.create(
-        model="text-embedding-3-small",
-        input=texto
-    )
-    return resp.data[0].embedding
+    """Gera embedding para um texto."""
+    return modelo_embedding.encode([texto])[0].tolist()
 
 def hash_arquivo(caminho):
     """Gera hash SHA256 do conteúdo para detectar alterações."""
@@ -41,11 +39,7 @@ def salvar_hashes(hashes):
 
 def dividir_em_chunks(texto, tamanho=TAMANHO_CHUNK):
     """Divide o texto em pedaços menores para não estourar o limite do modelo."""
-    chunks = []
-    for i in range(0, len(texto), tamanho):
-        pedaço = texto[i:i+tamanho]
-        chunks.append(pedaço)
-    return chunks
+    return [texto[i:i+tamanho] for i in range(0, len(texto), tamanho)]
 
 # === CARREGAR CHROMADB LOCAL ===
 chroma_client = chromadb.PersistentClient(path=PASTA_CHROMA)
@@ -54,7 +48,7 @@ try:
 except:
     collection = chroma_client.create_collection(name="documentos_sindicato")
 
-# === INDEXAÇÃO INTELIGENTE COM CHUNKING ===
+# === INDEXAÇÃO COM CHUNKING ===
 print("📂 Verificando arquivos...")
 hashes_existentes = carregar_hashes()
 hashes_atualizados = hashes_existentes.copy()
