@@ -1,3 +1,4 @@
-chromadb==0.4.24
-sentence-transformers==2.6.1
+chromadb==1.0.17
+sentence-transformers==5.1.0
 torch>=2.0.0
+ollama>=0.5.3
