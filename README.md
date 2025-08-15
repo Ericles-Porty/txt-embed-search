@@ -1,16 +1,15 @@
 # Busca Semântica com ChromaDB e Hugging Face
 
-Este projeto realiza indexação e busca semântica em arquivos `.txt` usando **Hugging Face Sentence Transformers** para gerar embeddings gratuitamente e o **ChromaDB** para armazenar e pesquisar.
+Este projeto realiza indexação e busca semântica em arquivos `.txt` usando **Hugging Face Sentence Transformers** para gerar embeddings e o **ChromaDB** para armazenar e pesquisar.
 
 ## 📌 Funcionalidades
 - Indexa automaticamente arquivos `.txt` da pasta configurada.
-- Detecta alterações em arquivos usando hash SHA256 (evita reprocessamento desnecessário).
+- Detecta alterações em arquivos usando hash SHA256.
 - Divide textos grandes em *chunks* para melhorar a busca.
-- Busca semântica local sem custo de API.
 - Persistência local do banco ChromaDB.
 
 ## 🚀 Tecnologias
-- [Sentence Transformers](https://www.sbert.net/) (Hugging Face)
+- [Sentence Transformers](https://www.sbert.net/)
 - [ChromaDB](https://www.trychroma.com/)
 - [Python](https://www.python.org/)
 
